@@ -10,6 +10,7 @@ request.onupgradeneeded = function() {
 request.onsuccess = function() {
   // when db is successfully created with its object store (from onupgradedneeded event above), save reference to db in global variable
    db = request.result;
+   console.log('index db connected')
   // check if app is online, if yes run checkDatabase() function to send all local db data to api
   if (navigator.onLine) {
     upLoadTransactions();
@@ -22,7 +23,7 @@ request.onerror = function() {
 };
 
 function saveTransactions(transactions, isAdding) {
-
+  
   const transaction = db.transaction(['transactions'], 'readwrite');
 
   const tStore = transaction.objectStore('transactions');
@@ -37,6 +38,7 @@ function saveTransactions(transactions, isAdding) {
 }
 
 function upLoadTransactions() {
+  console.log('Uploading Offline Transactions');
   // open a transaction on your pending db
   const transaction = db.transaction(['transactions'], 'readwrite');
 
@@ -49,6 +51,8 @@ function upLoadTransactions() {
   getAll.onsuccess = function() {
     // if there was data in indexedDb's store, let's send it to the api server
     if (getAll.result.length > 0) {
+      alert('Uploading Offline Transactions')
+
       fetch('/api/transaction/bulk', {
         method: 'POST',
         body: JSON.stringify(getAll.result),
@@ -60,13 +64,14 @@ function upLoadTransactions() {
         .then(response => {response.json()
         console.log('fetch response from storeall', response)})
         .then(serverResponse => {
-          if (serverResponse.message) {
-            throw new Error(serverResponse);
-          }
-          console.log('serverResponse', serverResponse)
+          console.log('inside server REsponse')
+          // if (serverResponse.message) {
+          //   throw new Error(serverResponse);
+          // }
           const transaction = db.transaction(['transactions'], 'readwrite');
           const tStore = transaction.objectStore('transactions');
           // clear all items in your store
+          console.log('tSTore before clear', tStore);
           tStore.clear();
           
         })

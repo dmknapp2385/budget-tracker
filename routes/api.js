@@ -31,4 +31,8 @@ router.get("/api/transaction", (req, res) => {
     });
 });
 
+router.delete('/api/transaction', (req, res) => {
+  Transaction.deleteMany({}).then(result => res.json(result))
+})
+
 module.exports = router;

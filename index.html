@@ -53,9 +53,6 @@
       navigator.serviceWorker.register('./service-worker.js')
       .then(function(registration) {
         console.log('Service Worker registered')
-        window.addEventListener('online', function(e) {
-          registration.update();
-        })
       })
       .catch((err) => console.error('Registrations failed with', err))
     })();
