@@ -12,7 +12,6 @@ const CACHE_NAME = APP_PREFIX + VERSION;
 self.addEventListener('install', function(e) {
     e.waitUntil(
         caches.open(CACHE_NAME).then(function(cache){
-            console.log('cache install', cache)
             console.log('installing cache : ' + CACHE_NAME)
             return cache.addAll(FILES_TO_CACHE)
         })
