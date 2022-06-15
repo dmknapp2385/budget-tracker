@@ -35,7 +35,7 @@ Enter a description of your spendings, the amount and click the add funds or sub
     
 ## Website
 
-This project can be found at https://dashboard.heroku.com/apps/dry-inlet-26406
+This project can be found at https://dry-inlet-26406.herokuapp.com/
   
 ## Credits
 Danielle Knapp and the University of Arizona Bootcamp
